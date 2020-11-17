@@ -1,0 +1,20 @@
+<!doctype html>
+
+<ul>
+    {% for post in list_of_posts %}
+      <li>IP de l'auteur : {{ post.ip_auteur }}</li>
+      <p>Contenu du post : {{ post.contenu }}</p>
+      <p>Date et heure de création : {{ post.date_heure_post }}</p>
+      <br>
+      <br>
+    {% endfor %}  
+</ul>
+
+<br>
+<br>
+
+<form action = "/addPost" method = "post">
+  <p>Entrer le contenu de votre nouveau post :</p>
+  <p><input type = "text" name = "contenu" /></p>
+  <p><input type = "submit" value = "Créer" /></p>
+</form>  

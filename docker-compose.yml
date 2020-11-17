@@ -1,0 +1,30 @@
+#en vrai ici, adminer n'est pas forcément utile car ça ne sert qu'à accéder à la database en dur mais je fais tout par le code
+
+#DEMANDER DIFFERENCE AVEC LINK ET DEPENDS_ON
+
+services:
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - .:/docker-entrypoint-initdb.d #pour lancer le script sql d'initialisation de la database
+        ports:
+            - 3306:3306
+    adminer:
+        image: adminer
+        restart: always
+        depends_on:
+            - mysql
+        ports:
+            - 82:8080
+    app:
+        build: .
+        links:
+            - mysql
+        ports:
+            - 5000:5000
+        volumes:
+            - .:/app
+        environment:
+            FLASK_ENV: development
